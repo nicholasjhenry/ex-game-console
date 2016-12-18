@@ -9,12 +9,12 @@ defmodule GameConsole do
     # Define workers and child supervisors to be supervised
     children = [
       # Starts a worker by calling: GameConsole.Worker.start_link(arg1, arg2, arg3)
-      # worker(GameConsole.Worker, [arg1, arg2, arg3]),
+      worker(GameConsole.Player, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: GameConsole.Supervisor]
+    opts = [strategy: :simple_one_for_one, name: GameConsole.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end

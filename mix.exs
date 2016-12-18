@@ -14,7 +14,7 @@ defmodule GameConsole.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger],
+    [applications: [:logger, :eventstore],
      mod: {GameConsole, []}]
   end
 
@@ -28,6 +28,10 @@ defmodule GameConsole.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:eventstore, "~> 0.5"},
+      {:uuid, "~> 1.1"},
+      {:poison, "~> 3.0"}
+    ]
   end
 end
