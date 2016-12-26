@@ -31,7 +31,8 @@ defmodule GameConsole.Mixfile do
     [
       {:eventstore, "~> 0.5"},
       {:uuid, "~> 1.1"},
-      {:poison, "~> 3.0"}
+      {:poison, "~> 3.0"},
+      {:mix_test_watch, "~> 0.2", only: :dev},
     ]
   end
 end
