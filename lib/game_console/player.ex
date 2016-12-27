@@ -1,14 +1,15 @@
 defmodule GameConsole.Player do
   alias GameConsole.{PlayerCreated, PlayerHit}
 
-  defstruct name: "Unknown", health: 100
+  defstruct name: :unknown, health: 100
 
   # public command API
 
-  def create(_, name) do
+  def create(%{name: :unknown}, name) do
     DisplayHelper.write_line("#{name} created")
     %PlayerCreated{name: name}
   end
+  def create(_player, _name), do: {:error, :player_exists_with_name}
 
   def hit(_, damage) do
     DisplayHelper.write_line("#{damage} hit")
