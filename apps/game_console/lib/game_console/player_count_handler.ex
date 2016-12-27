@@ -17,4 +17,8 @@ defmodule GameConsole.PlayerCountHandler do
   def count do
     Agent.get(__MODULE__, fn count -> count end)
   end
+
+  def reset do
+    Agent.update(__MODULE__, fn(_) -> 0 end)
+  end
 end
