@@ -16,6 +16,5 @@ defmodule GameConsole.PlayerTest do
 
     {:ok, events} = EventStore.read_stream_forward(Player.id(sarah))
     assert length(events) == 1
-    IO.inspect events
   end
 end
