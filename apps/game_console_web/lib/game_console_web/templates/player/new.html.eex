@@ -1,0 +1,12 @@
+<div class="jumbotron">
+  <h2>Game Console</h2>
+  <p>Add a new player (total_players: <%= @player_count %>)</h2>
+</div>
+
+<div class="row">
+  <%= form_for @conn, player_path(@conn, :create), [as: :player], fn f -> %>
+    <label>
+      Name: <%= text_input f, :name %>
+    </label>
+  <% end %>
+</div>

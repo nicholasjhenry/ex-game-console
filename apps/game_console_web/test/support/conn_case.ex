@@ -28,6 +28,15 @@ defmodule GameConsoleWeb.ConnCase do
   end
 
   setup tags do
+    {:ok, pid} = Postgrex.start_link(
+      hostname: Application.get_env(:eventstore, EventStore.Storage)[:hostname],
+      database: Application.get_env(:eventstore, EventStore.Storage)[:database]
+    )
+    Postgrex.query!(pid, "DELETE FROM events", [])
+    Postgrex.query!(pid, "DELETE FROM snapshots", [])
+    Postgrex.query!(pid, "DELETE FROM streams", [])
+    Postgrex.query!(pid, "DELETE FROM subscriptions", [])
+
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
