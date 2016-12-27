@@ -6,13 +6,11 @@ defmodule GameConsole.Player do
   # public command API
 
   def create(%{name: :unknown}, name) do
-    DisplayHelper.write_line("#{name} created")
     %PlayerCreated{name: name}
   end
   def create(_player, _name), do: {:error, :player_exists_with_name}
 
   def hit(_, damage) do
-    DisplayHelper.write_line("#{damage} hit")
     %PlayerHit{damage_taken: damage}
   end
 
