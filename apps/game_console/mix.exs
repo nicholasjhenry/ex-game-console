@@ -38,9 +38,9 @@ defmodule GameConsole.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
+      {:poison, "~> 2.0", override: true},
       {:commanded, github: "slashdotdash/commanded"},
       {:uuid, "~> 1.1"},
-      {:poison, "~> 3.0"},
       {:mix_test_watch, "~> 0.2", only: :dev},
     ]
   end
