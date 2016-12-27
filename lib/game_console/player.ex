@@ -1,7 +1,8 @@
 defmodule GameConsole.Player do
   use GenServer
-
   alias GameConsole.{HitPlayer, PlayerHit}
+
+  defstruct id: nil, version: 0, name: "Unknown", health: 100
 
   def create(name) do
     GenServer.start_link(__MODULE__, name, [name: String.to_atom("player-#{name}")])
@@ -9,7 +10,7 @@ defmodule GameConsole.Player do
 
   def init(name) do
     DisplayHelper.write_line("#{name} created")
-    {:ok, %{id: UUID.uuid4, version: 0, name: name, health: 100}}
+    {:ok, struct(__MODULE__, %{id: UUID.uuid4, name: name})}
   end
 
   def health(player) do
@@ -55,3 +56,4 @@ defmodule GameConsole.Player do
     {:reply, state.id, state}
   end
 end
+
