@@ -1,5 +1,5 @@
 defmodule GameConsole.PlayerTest do
-  use ExUnit.Case
+  use GameConsole.Case
 
   alias GameConsole.{Player, HitPlayer}
 
