@@ -1,3 +1,3 @@
 defmodule GameConsole.HitPlayer do
-  defstruct damage: 0
+  defstruct name: nil, damage: 0
 end

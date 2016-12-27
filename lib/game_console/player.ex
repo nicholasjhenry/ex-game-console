@@ -1,59 +1,28 @@
 defmodule GameConsole.Player do
-  use GenServer
-  alias GameConsole.{HitPlayer, PlayerHit}
+  alias GameConsole.{PlayerCreated, PlayerHit}
 
-  defstruct id: nil, version: 0, name: "Unknown", health: 100
+  defstruct name: "Unknown", health: 100
 
-  def create(name) do
-    GenServer.start_link(__MODULE__, name, [name: String.to_atom("player-#{name}")])
-  end
+  # public command API
 
-  def init(name) do
+  def create(_, name) do
     DisplayHelper.write_line("#{name} created")
-    {:ok, struct(__MODULE__, %{id: UUID.uuid4, name: name})}
+    %PlayerCreated{name: name}
   end
 
-  def health(player) do
-    GenServer.call(player, :health)
-  end
-
-  def id(player) do
-    GenServer.call(player, :id)
-  end
-
-  def handle(player, %HitPlayer{damage: damage}) do
-    GenServer.cast(player, {:hit, damage})
-  end
-
-  # Server Callbacks
-
-  def handle_cast({:hit, damage}, state) do
-    DisplayHelper.write_line("#{state.name} received HitPlayer command")
-
+  def hit(_, damage) do
+    DisplayHelper.write_line("#{damage} hit")
     %PlayerHit{damage_taken: damage}
-
-    events = [
-      %EventStore.EventData{
-        event_type: "GameConsole.PlayerHit",
-        data: %{damage_taken: damage},
-        metadata: %{name: state.name},
-      }
-    ]
-
-    :ok = EventStore.append_to_stream(state.id, state.version, events)
-
-    new_state = %{state | health: state.health - damage, version: state.version + 1}
-
-    {:noreply, new_state}
   end
 
-  def handle_call(:health, _from, state) do
-    {:reply, state.health, state}
+  # state mutators
+
+  def apply(%__MODULE__{} = player, %PlayerCreated{name: name}) do
+    %__MODULE__{player | name: name}
   end
 
-
-  def handle_call(:id, _from, state) do
-    {:reply, state.id, state}
+  def apply(%__MODULE__{} = player, %PlayerHit{damage_taken: damage_taken}) do
+    %__MODULE__{player | health: player.health - damage_taken}
   end
 end
 

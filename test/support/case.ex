@@ -11,6 +11,6 @@ defmodule GameConsole.Case do
     Postgrex.query!(pid, "DELETE FROM streams", [])
     Postgrex.query!(pid, "DELETE FROM subscriptions", [])
 
-    :ok
+    {:ok, [event_store_pid: pid]}
   end
 end

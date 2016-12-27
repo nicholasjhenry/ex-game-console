@@ -1,20 +1,23 @@
 defmodule GameConsole.PlayerTest do
   use GameConsole.Case
 
-  alias GameConsole.{Player, HitPlayer}
+  alias GameConsole.{Router, CreatePlayer, HitPlayer}
 
   test "creating a player returns a new player" do
-    response = Player.create("Sarah")
-    assert {:ok, _} = response
+    result = Router.dispatch(%CreatePlayer{name: "sarah"})
+    assert :ok == result
   end
 
+  # Assume we cannot create a player with the same identity as it is being
+  # tracked by the "commanded" process
+  #
   test "hitting a player reduces health" do
-    {:ok, sarah} = Player.create("Sarah")
-    Player.handle(sarah, %HitPlayer{damage: 20})
+    :ok = Router.dispatch(%CreatePlayer{name: "bob"})
 
-    assert Player.health(sarah) == 80
+    result = Router.dispatch(%HitPlayer{name: "bob", damage: 20})
+    assert :ok == result
 
-    {:ok, events} = EventStore.read_stream_forward(Player.id(sarah))
-    assert length(events) == 1
+    {:ok, events} = EventStore.read_stream_forward("bob")
+    assert length(events) == 2
   end
 end
