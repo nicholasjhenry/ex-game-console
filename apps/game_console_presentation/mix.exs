@@ -45,7 +45,8 @@ defmodule GameConsolePresentation.Mixfile do
   defp deps do
     [
       {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.1"}
+      {:ecto, "~> 2.1"},
+      {:game_console, in_umbrella: true},
     ]
   end
 

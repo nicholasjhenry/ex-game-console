@@ -10,3 +10,12 @@
     </label>
   <% end %>
 </div>
+
+<div class="row">
+  <h3>Player Statuses</h3>
+  <ul>
+    <%= for player_status <- @player_statuses do %>
+      <li><%= player_status.name %>: <%= player_status.status %></li>
+    <% end %>
+  </ul>
+</div>

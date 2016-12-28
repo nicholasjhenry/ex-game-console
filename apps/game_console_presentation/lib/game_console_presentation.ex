@@ -10,7 +10,8 @@ defmodule GameConsolePresentation do
     children = [
       # Starts a worker by calling: GameConsolePresentation.Worker.start_link(arg1, arg2, arg3)
       # worker(GameConsolePresentation.Worker, [arg1, arg2, arg3]),
-      supervisor(GameConsolePresentation.Repo, [])
+      supervisor(GameConsolePresentation.Repo, []),
+      worker(Commanded.Event.Handler, ["player_status", GameConsolePresentation.PlayerStatus.Projector], id: :player_status)
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
