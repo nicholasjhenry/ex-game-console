@@ -1,0 +1,8 @@
+<div class="jumbotron">
+  <h2>Game Console</h2>
+  <p>Active Player</h2>
+</div>
+
+<div class="row">
+  <p><%= @player.name %> : <%= @player.health %></p>
+</div>

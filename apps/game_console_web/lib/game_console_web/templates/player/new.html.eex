@@ -15,7 +15,7 @@
   <h3>Active Players</h3>
   <ul>
     <%= for player <- @active_players do %>
-      <li><%= player.name %>: <%= player.health %></li>
+      <li><%= link player.name, to: player_path(@conn, :show, player) %>: <%= player.health %></li>
     <% end %>
   </ul>
 </div>

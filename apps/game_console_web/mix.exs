@@ -40,6 +40,7 @@ defmodule GameConsoleWeb.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:poison, "~> 2.0", override: true},
+      {:game_console_presentation, in_umbrella: true},
    ]
   end
 end

@@ -20,6 +20,7 @@ defmodule GameConsoleWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
 
+      alias GameConsolePresentation.Repo
       import GameConsoleWeb.Router.Helpers
 
       # The default endpoint for testing
@@ -28,15 +29,11 @@ defmodule GameConsoleWeb.ConnCase do
   end
 
   setup tags do
-    {:ok, pid} = Postgrex.start_link(
-      hostname: Application.get_env(:eventstore, EventStore.Storage)[:hostname],
-      database: Application.get_env(:eventstore, EventStore.Storage)[:database]
-    )
-    Postgrex.query!(pid, "DELETE FROM events", [])
-    Postgrex.query!(pid, "DELETE FROM snapshots", [])
-    Postgrex.query!(pid, "DELETE FROM streams", [])
-    Postgrex.query!(pid, "DELETE FROM subscriptions", [])
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(GameConsolePresentation.Repo)
 
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(GameConsolePresentation.Repo, {:shared, self()})
+    end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
