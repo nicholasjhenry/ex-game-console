@@ -4,7 +4,7 @@ defmodule GameConsoleWeb.PlayerController do
   alias GameConsolePresentation.{ActivePlayers, ActivePlayer}
 
   def new(conn, _params) do
-    render conn, "new.html", player_count: GameConsole.PlayerCountHandler.count, active_players: fetch_active_players
+    render conn, "new.html", player_count: GameConsole.PlayerCounter.count, active_players: fetch_active_players
   end
 
   def create(conn, %{"player" => params}) do

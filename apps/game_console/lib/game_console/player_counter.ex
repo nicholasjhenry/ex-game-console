@@ -1,4 +1,4 @@
-defmodule GameConsole.PlayerCountHandler do
+defmodule GameConsole.PlayerCounter do
   @behaviour Commanded.Event.Handler
 
   alias GameConsole.PlayerRegistered

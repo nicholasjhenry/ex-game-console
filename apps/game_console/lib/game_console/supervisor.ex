@@ -7,7 +7,7 @@ defmodule GameConsole.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(Commanded.Event.Handler, ["player_count_handler", GameConsole.PlayerCountHandler, [start_from: :current]])
+      worker(Commanded.Event.Handler, ["player_counter", GameConsole.PlayerCounter, [start_from: :current]])
     ]
 
     supervise(children, strategy: :one_for_one)
