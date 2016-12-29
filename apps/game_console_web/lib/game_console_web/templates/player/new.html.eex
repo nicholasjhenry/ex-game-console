@@ -12,10 +12,10 @@
 </div>
 
 <div class="row">
-  <h3>Player Statuses</h3>
+  <h3>Active Players</h3>
   <ul>
-    <%= for player_status <- @player_statuses do %>
-      <li><%= player_status.name %>: <%= player_status.status %></li>
+    <%= for player <- @active_players do %>
+      <li><%= player.name %>: <%= player.health %></li>
     <% end %>
   </ul>
 </div>

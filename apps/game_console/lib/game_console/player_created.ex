@@ -1,3 +1,3 @@
 defmodule GameConsole.PlayerCreated do
-  defstruct [:name]
+  defstruct [:name, :health]
 end

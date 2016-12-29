@@ -1,8 +1,10 @@
 defmodule GameConsoleWeb.PlayerController do
   use GameConsoleWeb.Web, :controller
 
+  alias GameConsolePresentation.ActivePlayers
+
   def new(conn, _params) do
-    render conn, "new.html", player_count: GameConsole.PlayerCountHandler.count, player_statuses: fetch_player_statuses
+    render conn, "new.html", player_count: GameConsole.PlayerCountHandler.count, active_players: fetch_active_players
   end
 
   def create(conn, %{"player" => params}) do
@@ -10,8 +12,7 @@ defmodule GameConsoleWeb.PlayerController do
     redirect conn, to: player_path(conn, :new)
   end
 
-  defp fetch_player_statuses do
-    GameConsolePresentation.PlayerStatus
-    |> GameConsolePresentation.Repo.all
+  defp fetch_active_players do
+    GameConsolePresentation.Repo.all(ActivePlayers)
   end
 end
