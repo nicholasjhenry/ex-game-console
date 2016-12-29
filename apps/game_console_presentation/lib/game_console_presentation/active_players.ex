@@ -14,7 +14,7 @@ defmodule GameConsolePresentation.ActivePlayers do
 
     alias GameConsolePresentation.ActivePlayers
 
-    def handle(%GameConsole.PlayerCreated{name: name, health: health}, %{event_id: event_id}) do
+    def handle(%GameConsole.PlayerRegistered{name: name, health: health}, %{event_id: event_id}) do
       ActivePlayers.update_projection(@projection_name, event_id, fn multi ->
         Ecto.Multi.insert(multi, :example, %ActivePlayers{
           name: name,
