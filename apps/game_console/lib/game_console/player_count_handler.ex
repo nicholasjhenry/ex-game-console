@@ -1,13 +1,13 @@
 defmodule GameConsole.PlayerCountHandler do
   @behaviour Commanded.Event.Handler
 
-  alias GameConsole.PlayerCreated
+  alias GameConsole.PlayerRegistered
 
   def start_link do
     Agent.start_link(fn -> 0 end, name: __MODULE__)
   end
 
-  def handle(%PlayerCreated{}, _metadata) do
+  def handle(%PlayerRegistered{}, _metadata) do
     Agent.update(__MODULE__, fn count -> count + 1 end)
   end
 

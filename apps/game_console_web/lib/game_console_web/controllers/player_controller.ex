@@ -8,7 +8,7 @@ defmodule GameConsoleWeb.PlayerController do
   end
 
   def create(conn, %{"player" => params}) do
-    :ok = GameConsole.Router.dispatch(struct(GameConsole.CreatePlayer, name: params["name"]))
+    :ok = GameConsole.Router.dispatch(struct(GameConsole.RegisterPlayer, name: params["name"]))
     redirect conn, to: player_path(conn, :new)
   end
 

@@ -1,5 +1,5 @@
 defmodule GameConsole.Player do
-  alias GameConsole.{PlayerCreated, PlayerHit}
+  alias GameConsole.{PlayerRegistered, PlayerHit}
 
   @initial_health 100
 
@@ -7,10 +7,10 @@ defmodule GameConsole.Player do
 
   # public command API
 
-  def create(%{name: :unknown}, name) do
-    %PlayerCreated{name: name, health: @initial_health}
+  def register(%{name: :unknown}, name) do
+    %PlayerRegistered{name: name, health: @initial_health}
   end
-  def create(_player, _name), do: {:error, :player_exists_with_name}
+  def register(_player, _name), do: {:error, :player_previously_registered_with_name}
 
   def hit(_, damage) do
     %PlayerHit{damage_taken: damage}
@@ -18,7 +18,7 @@ defmodule GameConsole.Player do
 
   # state mutators
 
-  def apply(%__MODULE__{} = player, %PlayerCreated{name: name, health: health}) do
+  def apply(%__MODULE__{} = player, %PlayerRegistered{name: name, health: health}) do
     %{player | name: name, health: health}
   end
 

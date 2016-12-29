@@ -1,7 +1,7 @@
 defmodule GameConsole.PlayerCountHandlerTest do
   use GameConsole.Case
 
-  alias GameConsole.{PlayerCountHandler, PlayerCreated}
+  alias GameConsole.{PlayerCountHandler, PlayerRegistered}
 
   setup do
     PlayerCountHandler.reset
@@ -10,8 +10,8 @@ defmodule GameConsole.PlayerCountHandlerTest do
   end
 
   test "player created adds 1 to the count" do
-    PlayerCountHandler.handle(%PlayerCreated{}, %{})
-    PlayerCountHandler.handle(%PlayerCreated{}, %{})
+    PlayerCountHandler.handle(%PlayerRegistered{}, %{})
+    PlayerCountHandler.handle(%PlayerRegistered{}, %{})
     assert PlayerCountHandler.count == 2
   end
 end
