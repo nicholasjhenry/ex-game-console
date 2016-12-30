@@ -10,8 +10,6 @@ defmodule GameConsolePresentation.PlayerCounter do
   def handle(%PlayerRegistered{}, _metadata) do
     Agent.update(__MODULE__, fn count -> count + 1 end)
   end
-
-  # ignore all other events
   def handle(_event, _metadata), do: :ok
 
   def count do

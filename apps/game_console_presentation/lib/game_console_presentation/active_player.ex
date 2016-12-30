@@ -9,7 +9,6 @@ defmodule GameConsolePresentation.ActivePlayer do
 
   defmodule Projector do
     @behaviour Commanded.Event.Handler
-
     @projection_name "active_player"
 
     alias GameConsolePresentation.ActivePlayer
@@ -22,8 +21,6 @@ defmodule GameConsolePresentation.ActivePlayer do
         })
       end)
     end
-
-    # ignore all other events
     def handle(_event, _metadata), do: :ok
   end
 end
