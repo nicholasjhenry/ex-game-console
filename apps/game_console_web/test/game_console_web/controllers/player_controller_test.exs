@@ -15,9 +15,9 @@ defmodule GameConsoleWeb.PlayerControllerTest do
 
   test "showing an active player", %{conn: conn} do
     alias GameConsolePresentation.ActivePlayer
-    player = %ActivePlayer{name: "nicholas", health: 100} |> Repo.insert!
+    %ActivePlayer{name: "nicholas", health: 100} |> Repo.insert!
 
-    conn = get conn, player_path(conn, :show, player)
+    conn = get conn, player_path(conn, :show, "nicholas")
     assert html_response(conn, 200) =~ "Active Player"
   end
 end

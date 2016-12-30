@@ -21,6 +21,6 @@ defmodule GameConsoleWeb.PlayerController do
   end
 
   defp fetch_active_player(player_id) do
-    GameConsolePresentation.Repo.get(ActivePlayer, player_id)
+    GameConsolePresentation.Repo.get_by(ActivePlayer, name: player_id)
   end
 end

@@ -17,7 +17,9 @@ defmodule GameConsoleWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/players", PlayerController, only: [:new, :create, :show]
+    resources "/players", PlayerController, only: [:new, :create, :show] do
+      resources "/hits", HitController, only: [:create]
+    end
   end
 
   # Other scopes may use custom stacks.

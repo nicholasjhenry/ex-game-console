@@ -5,4 +5,10 @@
 
 <div class="row">
   <p><%= @player.name %> : <%= @player.health %></p>
+  <%= form_for @conn, player_hit_path(@conn, :create, @player.name), [as: :hit], fn f -> %>
+  <label>
+    Damage: <%= text_input f, :damage %>
+  </label>
+    <%= submit "Hit!" %>
+  <% end %>
 </div>
