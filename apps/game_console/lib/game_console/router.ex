@@ -5,11 +5,9 @@ defmodule GameConsole.Router do
   alias GameConsole.{
     Player,
     RegisterPlayer,
-    RegisterPlayerHandler,
     HitPlayer,
-    HitPlayerHandler
+    PlayerApplicationService
   }
 
-  dispatch RegisterPlayer, to: RegisterPlayerHandler, aggregate: Player, identity: :name
-  dispatch HitPlayer, to: HitPlayerHandler, aggregate: Player, identity: :name
+  dispatch [RegisterPlayer, HitPlayer], to: PlayerApplicationService, aggregate: Player, identity: :name
 end
