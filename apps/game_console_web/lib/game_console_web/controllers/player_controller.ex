@@ -1,10 +1,10 @@
 defmodule GameConsoleWeb.PlayerController do
   use GameConsoleWeb.Web, :controller
 
-  alias GameConsolePresentation.{ActivePlayers, ActivePlayer}
+  alias GameConsolePresentation.{ActivePlayers, ActivePlayer, PlayerCounter}
 
   def new(conn, _params) do
-    render conn, "new.html", player_count: GameConsole.PlayerCounter.count, active_players: fetch_active_players
+    render conn, "new.html", player_count: PlayerCounter.count, active_players: fetch_active_players
   end
 
   def create(conn, %{"player" => params}) do

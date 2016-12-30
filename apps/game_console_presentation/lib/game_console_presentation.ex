@@ -11,6 +11,8 @@ defmodule GameConsolePresentation do
       # Starts a worker by calling: GameConsolePresentation.Worker.start_link(arg1, arg2, arg3)
       # worker(GameConsolePresentation.Worker, [arg1, arg2, arg3]),
       supervisor(GameConsolePresentation.Repo, []),
+      worker(GameConsolePresentation.PlayerCounter, []),
+      worker(Commanded.Event.Handler, ["player_counter", GameConsolePresentation.PlayerCounter, [start_from: :current]]),
       worker(Commanded.Event.Handler, ["active_players", GameConsolePresentation.ActivePlayers.Projector], id: :active_players),
       worker(Commanded.Event.Handler, ["active_player", GameConsolePresentation.ActivePlayer.Projector], id: :active_player)
     ]

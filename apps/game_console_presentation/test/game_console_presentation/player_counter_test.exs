@@ -1,7 +1,8 @@
-defmodule GameConsole.PlayerCounterTest do
-  use GameConsole.Case
+defmodule GameConsolePresentation.PlayerCounterTest do
+  use GameConsolePresentation.Case
 
-  alias GameConsole.{PlayerCounter, PlayerRegistered}
+  alias GameConsole.PlayerRegistered
+  alias GameConsolePresentation.PlayerCounter
 
   setup do
     PlayerCounter.reset

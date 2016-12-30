@@ -1,8 +1,6 @@
 defmodule GameConsole do
   use Application
 
-  alias GameConsole.PlayerCounter
-
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
@@ -11,7 +9,6 @@ defmodule GameConsole do
     # Define workers and child supervisors to be supervised
     children = [
       # Starts a worker by calling: GameConsole.Worker.start_link(arg1, arg2, arg3)
-      worker(PlayerCounter, []),
       supervisor(GameConsole.Supervisor, []),
     ]
 
