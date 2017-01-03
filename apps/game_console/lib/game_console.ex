@@ -9,6 +9,7 @@ defmodule GameConsole do
     # Define workers and child supervisors to be supervised
     children = [
       # Starts a worker by calling: GameConsole.Worker.start_link(arg1, arg2, arg3)
+      supervisor(GameConsole.Repo, []),
       supervisor(GameConsole.Supervisor, []),
     ]
 

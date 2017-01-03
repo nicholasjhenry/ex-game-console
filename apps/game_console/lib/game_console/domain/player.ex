@@ -12,8 +12,8 @@ defmodule GameConsole.Player do
   end
   def register(_player, _name), do: {:error, :player_previously_registered_with_name}
 
-  def hit(_, damage) do
-    %PlayerHit{damage_taken: damage}
+  def hit(%{name: name, health: player_health}, damage) do
+    %PlayerHit{name: name, damage_taken: damage, remaining_health: calculate_health(player_health, damage)}
   end
 
   # state mutators
@@ -23,7 +23,11 @@ defmodule GameConsole.Player do
   end
 
   def apply(%__MODULE__{} = player, %PlayerHit{damage_taken: damage_taken}) do
-    %{player | health: player.health - damage_taken}
+    %{player | health: calculate_health(player.health, damage_taken)}
+  end
+
+  defp calculate_health(player_health, damage_taken) do
+    player_health - damage_taken
   end
 end
 

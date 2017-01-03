@@ -20,7 +20,7 @@ defmodule GameConsole.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :commanded],
+    [applications: [:logger, :commanded, :ecto],
      mod: {GameConsole, []}]
   end
 
@@ -42,6 +42,7 @@ defmodule GameConsole.Mixfile do
       {:commanded, github: "slashdotdash/commanded"},
       {:uuid, "~> 1.1"},
       {:mix_test_watch, "~> 0.2", only: :dev},
+      {:ecto, "~> 2.1"},
     ]
   end
 end

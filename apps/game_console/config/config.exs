@@ -20,6 +20,8 @@ use Mix.Config
 #
 #     config :logger, level: :info
 #
+#
+config :game_console, ecto_repos: [GameConsole.Repo]
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
