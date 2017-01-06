@@ -11,7 +11,7 @@ defmodule GameConsole.PlayerApplicationService do
     Player.register(aggregate, name)
   end
 
-  def handle(%Player{} = aggregate, %HitPlayer{damage: damage}) do
-    Player.hit(aggregate, damage)
+  def handle(%Player{} = aggregate, %HitPlayer{damage: damage, hitter: hitter}) do
+    Player.hit(aggregate, damage, hitter)
   end
 end

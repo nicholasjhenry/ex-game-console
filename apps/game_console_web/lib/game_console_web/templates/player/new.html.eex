@@ -4,7 +4,7 @@
 </div>
 
 <div class="row">
-  <%= form_for @conn, player_path(@conn, :create), [as: :player], fn f -> %>
+  <%= form_for @conn, player_path(@conn, :create, "_format": "js"), [as: :player, "ujs-remote": true], fn f -> %>
     <label>
       Name: <%= text_input f, :name %>
     </label>

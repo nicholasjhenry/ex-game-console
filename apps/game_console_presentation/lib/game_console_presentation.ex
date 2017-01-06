@@ -5,7 +5,7 @@ defmodule GameConsolePresentation do
   # for more information on OTP Applications
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
-    alias GameConsolePresentation.{PlayerCounter, ActivePlayers, ActivePlayer}
+    alias GameConsolePresentation.{PlayerCounter, ActivePlayers, ActivePlayer, SocketBroadcaster}
 
     # Define workers and child supervisors to be supervised
     children = [
@@ -15,7 +15,8 @@ defmodule GameConsolePresentation do
       worker(GameConsolePresentation.PlayerCounter, []),
       worker(Commanded.Event.Handler, ["player_counter", PlayerCounter, [start_from: :current]], id: :player_counter),
       worker(Commanded.Event.Handler, ["active_players", ActivePlayers.Projector], id: :active_players),
-      worker(Commanded.Event.Handler, ["active_player", ActivePlayer.Projector], id: :active_player)
+      worker(Commanded.Event.Handler, ["active_player", ActivePlayer.Projector], id: :active_player),
+      worker(Commanded.Event.Handler, ["socket_broadcaster", SocketBroadcaster, [start_from: :current]], id: :socket_broadcaster)
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

@@ -9,7 +9,7 @@ defmodule GameConsoleWeb.PlayerController do
 
   def create(conn, %{"player" => params}) do
     :ok = GameConsole.Router.dispatch(struct(GameConsole.RegisterPlayer, name: params["name"]))
-    redirect conn, to: player_path(conn, :new)
+    turbo_redirect conn, to: player_path(conn, :new)
   end
 
   def show(conn, %{"id" => player_id}) do
@@ -22,5 +22,23 @@ defmodule GameConsoleWeb.PlayerController do
 
   defp fetch_active_player(player_id) do
     GameConsolePresentation.Repo.get_by(ActivePlayer, name: player_id)
+  end
+
+  def turbo_redirect(conn, opts) do
+    if conn.params["_format"] == "js" do
+      to = Keyword.fetch!(opts, :to)
+      visit_with_turbolinks(conn, to)
+    else
+      conn
+      |> Phoenix.Controller.redirect(opts)
+    end
+  end
+
+  defp visit_with_turbolinks(conn, to) do
+    script = "Turbolinks.clearCache()\nTurbolinks.visit(#{Poison.encode!(to)})"
+
+    conn
+    |> Plug.Conn.put_resp_header("content-type", "text/javascript")
+    |> Plug.Conn.send_resp(200, script)
   end
 end

@@ -4,10 +4,11 @@
 </div>
 
 <div class="row">
-  <p><%= @player.name %> : <%= @player.health %></p>
-  <%= form_for @conn, player_hit_path(@conn, :create, @player.name), [as: :hit], fn f -> %>
+  <p id="player-stats" data-turbolinks-permanent><%= @player.name %> : <%= @player.health %></p>
+  <%= form_for @conn, player_hit_path(@conn, :create, @player.name, "_format": "js"), [as: :hit, "ujs-remote": true], fn f -> %>
   <label>
     Damage: <%= text_input f, :damage %>
+    <%= hidden_input f, :hitter, value: Phoenix.Token.sign(@conn, "identity", @game_token) %>
   </label>
     <%= submit "Hit!" %>
   <% end %>

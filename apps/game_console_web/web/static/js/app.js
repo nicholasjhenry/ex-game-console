@@ -1,3 +1,5 @@
+import Turbolinks from "turbolinks"
+
 // Brunch automatically concatenates all files in your
 // watched paths. Those paths can be configured at
 // config.paths.watched in "brunch-config.js".
@@ -18,4 +20,9 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-// import socket from "./socket"
+import socket from "./socket"
+
+import "phoenix_ujs"
+import "./form"
+
+Turbolinks.start()

@@ -5,7 +5,8 @@
 // and connect at the socket path in "lib/my_app/endpoint.ex":
 import {Socket} from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+let token = document.head.querySelector("meta[name=channel_token]").getAttribute("content")
+let socket = new Socket("/socket", {params: {token: token}})
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -54,7 +55,20 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("notifications", {})
+
+channel.on("player_registered", payload => {
+  console.log("player_registered", payload)
+})
+channel.on("player_hit", payload => {
+  document.getElementById("alert").innerHTML = `Player hit: ${payload.name} with ${payload.damage_taken}!`
+  document.getElementById("player-stats").innerHTML = `${payload.name} : ${payload.remaining_health}`
+  console.log("player_hit", payload)
+})
+channel.on("testing", payload => {
+  console.log("testing", payload)
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
